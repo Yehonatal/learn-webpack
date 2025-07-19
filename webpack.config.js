@@ -1,6 +1,8 @@
 const path = require("path"); // Core Node.js module for handling file paths
 const HtmlWebpackPlugin = require("html-webpack-plugin"); // Plugin to generate HTML with injected bundle
 const Dotenv = require("dotenv-webpack"); // Plugin to load environment variables from .env files
+const BundleAnalysisPlugin =
+    require("webpack-bundle-analyzer").BundleAnalyzerPlugin; // Plugin for analyzing bundle size
 
 module.exports = (env, argv) => {
     const isProduction = argv.mode === "production"; // Check if the build is for production
@@ -77,6 +79,7 @@ module.exports = (env, argv) => {
                 template: path.resolve(__dirname, "src/template.html"), // HTML template to use
             }),
             new Dotenv(), // Loads environment variables from .env file into process.env
+            new BundleAnalysisPlugin(),
 
             // Tip: Add MiniCssExtractPlugin here in production to extract styles
             // new MiniCssExtractPlugin({ filename: '[name].[contenthash].css' })
